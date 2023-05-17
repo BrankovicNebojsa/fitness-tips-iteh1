@@ -28,6 +28,12 @@ $user = unserialize($_SESSION['user']);
   <title>FitnessTips</title>
   <!-- favicon -->
   <link rel="shortcut icon" href="./assets/favicon.jpg" type="image/x-icon" />
+  <!-- normalize -->
+  <link rel="stylesheet" href="./css/normalize.css" />
+  <!-- font-awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
+  <!-- index css -->
+  <link rel="stylesheet" href="./css/index.css" />
 </head>
 
 <body>
@@ -230,6 +236,9 @@ $user = unserialize($_SESSION['user']);
   <!-- end of edit profile data modal -->
 
   <div id="background-overlay" onclick="closeModals()"></div>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+  <script src="./js/app.js"></script>
+  <script src="./js/script.js"></script>
 </body>
 
 </html>
