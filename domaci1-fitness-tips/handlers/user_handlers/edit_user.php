@@ -41,7 +41,6 @@ if (isset($_POST['old-password']) && isset($_POST['new-password'])) {
     $oldPassword = sanitizeUserInput($_POST['old-password']);
     $newPassword = sanitizeUserInput($_POST['new-password']);
 
-
     $user = unserialize($_SESSION['user']);
     if ($user->getPassword() != $oldPassword) {
         header("Location: ../../index.php?message='Wrong old password'");
@@ -59,7 +58,6 @@ if (isset($_POST['old-password']) && isset($_POST['new-password'])) {
 
     exit();
 }
-
 
 /**
  * sanitize - to prevent any unsafe data which user can enter

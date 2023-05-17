@@ -161,9 +161,6 @@ class User
         return false;
     }
 
-
-
-
     // getters
 
     function getUsername()
@@ -199,7 +196,6 @@ class User
     {
         $this->email = $email;
     }
-
 
     function setPassword($password)
     {

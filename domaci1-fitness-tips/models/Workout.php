@@ -103,7 +103,6 @@ class Workout
             return array();
         }
 
-
         if ((!empty($exerciseTimeTo) && $exerciseTimeTo < $exerciseTimeFrom) || (!empty($difficultyLevelTo) && $difficultyLevelTo < $difficultyLevelFrom)) {
             return array();
         }

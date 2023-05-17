@@ -17,7 +17,6 @@ if (isset($_GET['message'])) {
 $user = unserialize($_SESSION['user']);
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 

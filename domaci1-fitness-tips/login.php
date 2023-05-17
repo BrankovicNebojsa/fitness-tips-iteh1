@@ -56,9 +56,6 @@ if (isset($_POST['register']) && isset($_POST['username']) && isset($_POST['pass
     }
 }
 
-
-
-
 /**
  * sanitize - to prevent any unsafe data which user can enter
  */
@@ -71,8 +68,6 @@ function sanitizeUserInput($data)
 }
 
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -88,7 +83,7 @@ function sanitizeUserInput($data)
     <!-- favicon -->
     <link rel="shortcut icon" href="./assets/favicon.jpg" type="image/x-icon" />
 
-    <title>Login | TastyTips</title>
+    <title>Login</title>
 </head>
 
 <body>

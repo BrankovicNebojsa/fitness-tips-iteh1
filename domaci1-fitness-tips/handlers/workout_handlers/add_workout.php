@@ -8,7 +8,6 @@ require '../../models/Workout.php';
  *  this is file which handles POST request for adding workout
  */
 
-
 session_start();
 $user = unserialize($_SESSION['user']);
 
@@ -59,9 +58,6 @@ if (
     exit();
     // header("Location: ../index.php?message='Invalid request format'");
 }
-
-
-
 
 /**
  * sanitize - to prevent any unsafe data which user can enter

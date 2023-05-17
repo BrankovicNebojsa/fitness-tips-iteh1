@@ -3,7 +3,6 @@
 require '../../db_connection.php';
 require '../../models/User.php';
 
-
 // this file handles POST
 
 $id = 0;
@@ -11,7 +10,6 @@ $id = 0;
 if (isset($_POST['id'])) {
     $id = $_POST['id'];
 }
-
 
 if ($id > 0) {
 
