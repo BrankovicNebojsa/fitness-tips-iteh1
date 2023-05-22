@@ -44,6 +44,7 @@ if (isset($_POST['register']) && isset($_POST['username']) && isset($_POST['pass
     } elseif (!User::checkEmail($conn, $email)) {
         $failed_registration_message = "User with email $email already exists";
     } else {
+        // everything is filled correctly
         $user = new User($username, $password, $email);
         $result = $user->create($conn);
 

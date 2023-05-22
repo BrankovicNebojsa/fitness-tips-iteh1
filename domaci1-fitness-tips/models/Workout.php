@@ -46,10 +46,13 @@ class Workout
     // function to add workout 
     function insert(mysqli $conn)
     {
-        $sql = "INSERT INTO workout (name,exercise_time,difficulty_level,first_exercise,second_exercise,third_exercise,description,image,user_id) VALUES (?,?,?,?,?,?,?,?,?)";
+        $sql = "INSERT INTO workout (name,exercise_time,difficulty_level,first_exercise,
+        second_exercise,third_exercise,description,image,user_id) VALUES (?,?,?,?,?,?,?,?,?)";
 
         $stmt = $conn->prepare($sql);   // using prepared statement to avoid SQL Injection
-        $stmt->bind_param("siisssssi", $this->name, $this->exerciseTime, $this->difficultyLevel, $this->firstExercise, $this->secondExercise, $this->thirdExercise, $this->description, $this->imageName, $this->user_id);   //s for string
+        $stmt->bind_param("siisssssi", $this->name, $this->exerciseTime, $this->difficultyLevel,
+         $this->firstExercise, $this->secondExercise, $this->thirdExercise, $this->description,
+          $this->imageName, $this->user_id);   //s for string
 
         $success = $stmt->execute();
 

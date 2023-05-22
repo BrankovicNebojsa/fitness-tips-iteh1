@@ -21,12 +21,10 @@ class User
      */
     function login(mysqli $conn)
     {
-
         $sql = "SELECT id,username,password,email FROM user WHERE username = ? AND password = ?";
 
         $stmt = $conn->prepare($sql);   // using prepared statement to avoid SQL Injection
         $stmt->bind_param("ss", $this->username, $this->password);   //s for string
-
 
         $stmt->execute();
 
@@ -34,7 +32,7 @@ class User
         $success = false;
 
         if ($result && $result->num_rows > 0) {
-            $row = $result->fetch_assoc();   //return assoc array, where each element is column with name in table
+            $row = $result->fetch_assoc();
 
             $this->id = $row['id'];
             $this->email = $row['email'];
@@ -91,8 +89,6 @@ class User
 
     static function delete(mysqli $conn, $id)
     {
-        // TODO : Deleting workouts
-
         $sql = "DELETE FROM workout WHERE user_id = ?";
 
         $stmt = $conn->prepare($sql);
@@ -108,7 +104,6 @@ class User
         $stmt->bind_param("i", $id);
 
         $success = $stmt->execute();
-
 
         return $success;
     }

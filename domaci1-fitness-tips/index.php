@@ -9,10 +9,10 @@ if (!isset($_SESSION['user'])) {
   exit();
 }
 
-if (isset($_GET['message'])) {
-  $message = $_GET['message'];
-  echo "<script>alert($message)</script>";
-}
+// if (isset($_GET['message'])) {
+//   $message = $_GET['message'];
+//   echo "<script>alert($message)</script>";
+// }
 
 $user = unserialize($_SESSION['user']);
 ?>
