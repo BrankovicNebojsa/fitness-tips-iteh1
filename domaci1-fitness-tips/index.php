@@ -147,10 +147,10 @@ $user = unserialize($_SESSION['user']);
   <!-- footer -->
   <footer class="page-footer">
     <p>
-      &copy; <span id="date"></span>
       <span class="footer-logo">FitnessTips</span>
-      built by
+      made by
       <a href="https://github.com/BrankovicNebojsa">Nebojsa Brankovic</a>
+      &copy; <span id="date"></span>
     </p>
   </footer>
 

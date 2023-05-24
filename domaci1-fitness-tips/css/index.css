@@ -138,7 +138,7 @@ ul {
 .btn {
     cursor: pointer;
     color: var(--white);
-    background: var(--primary-500);
+    background: var(--primary-400);
     border: transparent;
     border-radius: var(--borderRadius);
     letter-spacing: var(--letterSpacing);
@@ -150,7 +150,7 @@ ul {
 }
 
 .btn:hover {
-    background: var(--primary-700);
+    background: var(--primary-900);
     box-shadow: var(--shadow-3);
 }
 
@@ -431,7 +431,7 @@ Footer
 
 .footer-logo,
 .page-footer a {
-    color: var(--primary-500);
+    color: var(--primary-400);
 }
 
 
@@ -754,7 +754,7 @@ Single Workout Page
 
 .workout-icons i {
     font-size: 1.5rem;
-    color: var(--primary-500);
+    color: var(--primary-400);
 }
 
 .workout-icons h5,
@@ -797,7 +797,7 @@ Single Workout Page
     text-transform: uppercase;
     font-weight: 600;
     margin-bottom: 0;
-    color: var(--primary-500) !important;
+    color: var(--primary-400) !important;
 }
 
 .single-instruction header>p {
