@@ -6,50 +6,47 @@ $login_message = NULL;
 $failed_registration_message = NULL;
 $successful_registration_message = NULL;
 
-// login 
+// logovanje 
 if (isset($_POST['login']) && isset($_POST['username']) && isset($_POST['password'])) {
     $username =  sanitizeUserInput($_POST['username']);
     $password = sanitizeUserInput($_POST['password']);
 
-
-
     $user = new User($username, $password);
 
-    if ($user->login($conn))  // conn from dbConnection.php
-    {  // successful login
-
+    if ($user->login($conn))  // konekcija iz dbConnection.php
+    {  // uspesno logovanje
         session_start();
         $_SESSION['user'] = serialize($user);
         header('Location: index.php');
         exit();
-    } else {   // log in failed
+    } else {   
+        // neuspesno logovanje
         $login_message = "Wrong username or password";
     }
 }
 
-// registration 
+// registrovanje
 if (isset($_POST['register']) && isset($_POST['username']) && isset($_POST['password'])) {
     $username = sanitizeUserInput($_POST['username']);
     $password = sanitizeUserInput($_POST['password']);
     $confirmPassword = sanitizeUserInput($_POST['confirm-password']);
     $email = sanitizeUserInput($_POST['email']);
 
-
     if (empty($username) || empty($password) || empty($email) || empty($confirmPassword)) {
         $failed_registration_message = "You need to enter every data";
     } elseif ($confirmPassword != $password) {
         $failed_registration_message = "Passwords do not match";
-    } elseif (!User::checkUsername($conn, $username)) {
+    } elseif (!User::isUsernameUnique($conn, $username)) {
         $failed_registration_message = "User with username $username already exists";
-    } elseif (!User::checkEmail($conn, $email)) {
+    } elseif (!User::isEmailUnique($conn, $email)) {
         $failed_registration_message = "User with email $email already exists";
     } else {
-        // everything is filled correctly
+        // sve je dobro popunjeno 
         $user = new User($username, $password, $email);
         $result = $user->create($conn);
 
         if (!$result) {
-            // app failed to insert new user
+            // sistem nije uspeo da ubaci novog korisnika
             $failed_registration_message = "Failed to register new user. Try again";
         } else {
             $successful_registration_message = "You have successfully registered";
@@ -58,13 +55,13 @@ if (isset($_POST['register']) && isset($_POST['username']) && isset($_POST['pass
 }
 
 /**
- * sanitize - to prevent any unsafe data which user can enter
+ * sanitize - prevencija neadekvatnog unosa
  */
 function sanitizeUserInput($data)
 {
-    $data = trim($data);
-    $data = stripslashes($data);   // removes '/', this is important for showing data through app
-    $data = htmlspecialchars($data); // converts HTML special chars to normal chars
+    $data = trim($data);                // uklanja blanko karaktere na pocektu i na kraju unosa
+    $data = stripslashes($data);        // uklanja znak '/' kako ne bi remetio tok aplikacije
+    $data = htmlspecialchars($data);    // prebacuje specijalne HTML karaktere u obicne karaktere
     return $data;
 }
 
@@ -150,7 +147,7 @@ function sanitizeUserInput($data)
         </div>
 
 
-        <!-- login failed message popup-->
+        <!-- poruka o neuspesnom logovanju-->
 
         <?php
         if (!empty($login_message)) {

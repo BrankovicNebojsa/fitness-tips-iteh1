@@ -34,7 +34,7 @@ if (!$workout) {
   <!-- favicon -->
   <link rel="shortcut icon" href="./assets/favicon.jpg" type="image/x-icon" />
   <!-- normalize -->
-  <link rel="stylesheet" href="./css/normalize.css" />
+  <link rel="stylesheet" href="./css/style.css" />
   <!-- font-awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
   <!-- index css -->

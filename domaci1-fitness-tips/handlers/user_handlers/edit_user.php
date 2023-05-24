@@ -3,21 +3,19 @@
 require '../../db_connection.php';
 require '../../models/User.php';
 
-/**
- *  this is file which handles POST request for changing username and/or email
- */
+// Ovaj php fajl handluje POST zahtev za izmenu korisnickog imena i email-a kao i promenu sifre korisnika
 
 if (isset($_POST['username']) && isset($_POST['email'])) {
     session_start();
     $username = sanitizeUserInput($_POST['username']);
     $email = sanitizeUserInput($_POST['email']);
 
-    if (!User::checkUsername($conn, $username)) {
+    if (!User::isUsernameUnique($conn, $username)) {
         header("Location: ../../index.php?message='Username already exists'");
         exit();
     }
 
-    if (!User::checkEmail($conn, $email)) {
+    if (!User::isEmailUnique($conn, $email)) {
         header("Location: ../../index.php?message='Email already exists'");
         exit();
     }
@@ -59,13 +57,11 @@ if (isset($_POST['old-password']) && isset($_POST['new-password'])) {
     exit();
 }
 
-/**
- * sanitize - to prevent any unsafe data which user can enter
- */
+// prevencija loseg unosa korisnika
 function sanitizeUserInput($data)
 {
-    $data = trim($data);
-    $data = stripslashes($data);   // removes '/', this is important for showing data through app
-    $data = htmlspecialchars($data); // converts HTML special chars to normal chars
+    $data = trim($data);                // uklanja blanko karaktere na pocektu i na kraju unosa
+    $data = stripslashes($data);        // uklanja znak '/' kako ne bi remetio tok aplikacije
+    $data = htmlspecialchars($data);    // prebacuje specijalne HTML karaktere u obicne karaktere
     return $data;
 }

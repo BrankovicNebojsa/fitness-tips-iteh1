@@ -1,6 +1,4 @@
-/**
- * function for switching between tabs Login and Registration
- */
+// U ovom JavaScript fajlu se nalazi funkcija za prebacivanje sa Login-a na Register opciju kao i efekti pri kliku na jedan od navedenih opcija
 
 $(function () {
     $("#login-form-link").click(function (e) {

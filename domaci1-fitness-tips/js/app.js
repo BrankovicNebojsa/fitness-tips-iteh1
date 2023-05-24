@@ -1,11 +1,7 @@
-// This JS file is primarily for modals, effect and current date
+// Ovaj JavaScript fajl je napravljen za prozore za dodavanje novog treninga, izmenu podataka o korisniku kao i brisanje korisnika
+// kao i za neke efekte na stranici i postavljanje trenutne godine u footer
 
-/*
-=============== 
-Navbar
-===============
-*/
-
+// Navigacioni bar
 /**
  *
  * @param {*} selector - css class
@@ -29,27 +25,19 @@ const getElement = (selector) => {
     links.classList.toggle("show-links");
   });
   
-  /*
-  =============== 
-  Date
-  ===============
-  */
-  
-  /**
-   * setting current year, I don't want to be hardcoded in HTML page
-   */
+  // Datum (ovde postavljamo trenutnu godinu u element u okviru footera)
   const date = getElement("#date");
   const currentYear = new Date().getFullYear();
   date.textContent = currentYear;
   
   /*
   ===================================== 
-  Background overlay and closing modals
+  Background overlay and closing windows
   =====================================
   */
   
   /**
-   *  function to set background overlay when modal needs to be shown
+   *  function to set background overlay when window needs to be shown
    * @param {*} active - boolean to set or to remove background overlay
    */
   
@@ -63,53 +51,33 @@ const getElement = (selector) => {
   }
   
   /**
-   * functio to close active modals
+   * function to close active windows
    */
   
   function closeModals() {
     setOverlay(false);
-    setAddNewWorkoutModal(false);
-    setEditProfileDataModal(false);
-    setDeleteProfileModal(false);
+    setaddNewWorkoutWindow(false);
+    seteditProfileDataWindow(false);
+    setdeleteProfileWindow(false);
   }
   
   /*
   ==================== 
-  Add new Workout Modal
+  Add new Workout window
   ====================
   */
   
   /**
-   * showing modal for adding workout
+   * showing window for adding workout
    */
   
-  function popAddNewWorkoutModal(bool) {
+  function popaddNewWorkoutWindow(bool) {
     setOverlay(bool);
-    setAddNewWorkoutModal(bool);
+    setaddNewWorkoutWindow(bool);
   }
   
-  function setAddNewWorkoutModal(active) {
-    const modal = document.querySelector("#addNewWorkoutModal");
-    if (active) {
-      modal.classList.add("active");
-    } else {
-      modal.classList.remove("active");
-    }
-  }
-  
-  /*
-  =============== 
-  Delete Profile
-  ===============
-  */
-  
-  function popDeleteProfileModal(bool) {
-    setOverlay(bool);
-    setDeleteProfileModal(bool);
-  }
-  
-  function setDeleteProfileModal(active) {
-    const modal = document.querySelector("#deleteProfileModal");
+  function setaddNewWorkoutWindow(active) {
+    const modal = document.querySelector("#addNewWorkoutWindow");
     if (active) {
       modal.classList.add("active");
     } else {
@@ -123,13 +91,33 @@ const getElement = (selector) => {
   ===============
   */
   
-  function popEditProfileDataModal(bool) {
+  function popeditProfileDataWindow(bool) {
     setOverlay(bool);
-    setEditProfileDataModal(bool);
+    seteditProfileDataWindow(bool);
   }
   
-  function setEditProfileDataModal(active) {
-    const modal = document.querySelector("#editProfileDataModal");
+  function seteditProfileDataWindow(active) {
+    const modal = document.querySelector("#editProfileDataWindow");
+    if (active) {
+      modal.classList.add("active");
+    } else {
+      modal.classList.remove("active");
+    }
+  }
+
+  /*
+  =============== 
+  Delete Profile
+  ===============
+  */
+  
+  function popdeleteProfileWindow(bool) {
+    setOverlay(bool);
+    setdeleteProfileWindow(bool);
+  }
+  
+  function setdeleteProfileWindow(active) {
+    const modal = document.querySelector("#deleteProfileWindow");
     if (active) {
       modal.classList.add("active");
     } else {

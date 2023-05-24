@@ -4,15 +4,11 @@ require 'models/User.php';
 require 'db_connection.php';
 
 session_start();
-if (!isset($_SESSION['user'])) {
+
+if (!isset($_SESSION['user'])) {    // proverava da li je u globalnu promenljivu 'user' uneta vrednost (koja se unosi u login.php)
   header('Location: login.php');
   exit();
 }
-
-// if (isset($_GET['message'])) {
-//   $message = $_GET['message'];
-//   echo "<script>alert($message)</script>";
-// }
 
 $user = unserialize($_SESSION['user']);
 ?>
@@ -28,7 +24,7 @@ $user = unserialize($_SESSION['user']);
   <!-- favicon -->
   <link rel="shortcut icon" href="./assets/favicon.jpg" type="image/x-icon" />
   <!-- normalize -->
-  <link rel="stylesheet" href="./css/normalize.css" />
+  <link rel="stylesheet" href="./css/style.css" />
   <!-- font-awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
   <!-- index css -->
@@ -51,9 +47,9 @@ $user = unserialize($_SESSION['user']);
       <!-- links -->
       <div class="nav-links">
         <a href="index.php" class="nav-link">Home</a>
-        <a href="#" class="nav-link" onclick="popAddNewWorkoutModal(true)">Add workout</a>
-        <a href="#" class="nav-link" onclick="popEditProfileDataModal(true)">Edit profile</a>
-        <a href="#" class="nav-link" onclick="popDeleteProfileModal(true)">Delete profile</a>
+        <a href="#" class="nav-link" onclick="popaddNewWorkoutWindow(true)">Add workout</a>
+        <a href="#" class="nav-link" onclick="popeditProfileDataWindow(true)">Edit profile</a>
+        <a href="#" class="nav-link" onclick="popdeleteProfileWindow(true)">Delete profile</a>
 
         <div class="nav-link logout-link">
           <a href="logout.php" class="btn">Log out</a>
@@ -158,12 +154,11 @@ $user = unserialize($_SESSION['user']);
     </p>
   </footer>
 
-  <!-- modal for creating workout -->
-  <div id="addNewWorkoutModal">
+  <!-- prozor za kreiranje novog treninga -->
+  <div id="addNewWorkoutWindow">
     <div class="addNewWorkoutTitle">Describe your workout:</div>
     <form id="add_workout" method="POST" action="" enctype="multipart/form-data">
       <!-- multipart/form-data is needed when we use type="file"-->
-
       <input type="name" name="name" id="name" placeholder="Workout name" required />
       <input type="number" min=1 name="exercise_time" id="exercise_time" placeholder="Exercise time in minutes" required />
       <input type="number" min=1 name="difficulty_level" id="difficulty_level" placeholder="Difficulty level out of 10" required />
@@ -183,29 +178,10 @@ $user = unserialize($_SESSION['user']);
       </svg>
     </button>
   </div>
-  <!-- modal for creating workout -->
 
-  <!-- modal for deleting account -->
-  <div id="deleteProfileModal">
-    <div class="question">
-      Are you sure you want to delete your profile?
-      <br />
-      All of your workouts will be deleted!
-    </div>
-    <div class="buttons">
-      <button type="button" class="btn btn-danger delete" data-id="<?php echo $user->getId(); ?>" onclick="popDeleteProfileModal(false)">
-        Delete
-      </button>
-      <button type="button" class="btn btn-dark" onclick="popDeleteProfileModal(false)">
-        Cancel
-      </button>
-    </div>
-  </div>
-  <!-- end of modal for deleting account -->
-
-  <!-- edit profile data modal -->
-  <div id="editProfileDataModal">
-    <div class="editProfileDataModal">
+ <!-- prozor za menjanje podataka o korisniku -->
+ <div id="editProfileDataWindow">
+    <div class="editProfileDataWindow">
       <strong>Change your profile data:</strong>
     </div>
     <form method="POST" action="handlers/user_handlers/edit_user.php">
@@ -217,7 +193,7 @@ $user = unserialize($_SESSION['user']);
       <button type="submit" class="btn btn-primary">Save</button>
     </form>
     <hr />
-    <div class="editProfileDataModal"><strong>Change password: </strong></div>
+    <div class="editProfileDataWindow"><strong>Change password: </strong></div>
     <form method="POST" action="handlers/user_handlers/edit_user.php">
       <label for="old-password">Old password: </label>
       <input type="password" name="old-password" id="old-password" />
@@ -226,13 +202,29 @@ $user = unserialize($_SESSION['user']);
       <input type="password" name="new-password" id="new-password" />
       <button type="submit" class="btn btn-primary">Change password</button>
     </form>
-    <button type="button" class="btn btn-danger close-modal-btn" onclick="popEditProfileDataModal(false)">
+    <button type="button" class="btn btn-danger close-modal-btn" onclick="popeditProfileDataWindow(false)">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-octagon-fill" viewBox="0 0 16 16">
         <path d="M11.46.146A.5.5 0 0 0 11.107 0H4.893a.5.5 0 0 0-.353.146L.146 4.54A.5.5 0 0 0 0 4.893v6.214a.5.5 0 0 0 .146.353l4.394 4.394a.5.5 0 0 0 .353.146h6.214a.5.5 0 0 0 .353-.146l4.394-4.394a.5.5 0 0 0 .146-.353V4.893a.5.5 0 0 0-.146-.353L11.46.146zm-6.106 4.5L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708z"></path>
       </svg>
     </button>
   </div>
-  <!-- end of edit profile data modal -->
+
+  <!-- prozor za brisanje korisnika -->
+  <div id="deleteProfileWindow">
+    <div class="question">
+      Are you sure you want to delete your profile?
+      <br />
+      All of your workouts will be deleted!
+    </div>
+    <div class="buttons">
+      <button type="button" class="btn btn-danger delete" data-id="<?php echo $user->getId(); ?>" onclick="popdeleteProfileWindow(false)">
+        Delete
+      </button>
+      <button type="button" class="btn btn-dark" onclick="popdeleteProfileWindow(false)">
+        Cancel
+      </button>
+    </div>
+  </div>
 
   <div id="background-overlay" onclick="closeModals()"></div>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>

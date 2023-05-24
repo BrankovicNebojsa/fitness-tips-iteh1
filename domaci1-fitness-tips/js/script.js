@@ -1,4 +1,4 @@
-// This JS file is primarily for AJAX
+// U ovom JavaScript fajlu se koristi AJAX
 
 let workouts = [];
 const workoutsContainerElement = document.querySelector(".workouts-list");
@@ -13,14 +13,13 @@ const filters = {
 
 getWorkouts();
 
-// Because my button is not part of any form, I am making AJAX POST request when button is clicked
+// AJAX POST zahtev na klik dugmeta za brisanje korisnika
 $(document).ready(function () {
   $(".delete").click(function () {
     var el = this;
-
     var deleteid = $(this).data("id");
 
-    // AJAX Request
+    // AJAX POST zahtev
     $.ajax({
       url: "./handlers/user_handlers/delete_user.php",
       type: "POST",
@@ -41,7 +40,7 @@ $(document).ready(function () {
   });
 });
 
-// GET Request for Workouts for main page
+// GET zahtev za treninge koji se nalaze na index.php
 function getWorkouts() {
   $.ajax({
     url: "./handlers/workout_handlers/get_workouts.php?getAll",
@@ -50,7 +49,7 @@ function getWorkouts() {
       try {
         console.log(response);
         if (response != null) {
-          response = JSON.parse(response); // because we are getting workouts in JSON file
+          response = JSON.parse(response); // moramo da parsiramo povratnu vrednost jer predstavlja JSON fajl
           workouts = response;
         } else {
           workouts = [];
@@ -68,29 +67,49 @@ function getWorkouts() {
   });
 }
 
-// function to show (render workout)
-function renderWorkouts() {
-  workoutsContainerElement.innerHTML = ""; // this will make my div empty
-  if (workouts != null)
-    workouts.forEach((workout) => createNewWorkoutElement(workout)); // for each workout it adds content in html
+// funkcija koja sortira treninge u zavisnosti od izbora (postoje 3 izbora: exercise_time, difficulty_level i name)
+function sortWorkouts() {
+  const sortingParam = sortSelect.value;
+  const sortOrder = document.querySelector(
+    'input[name="sortOrderRadio"]:checked'
+  ).value;
+
+  workouts.sort((a, b) => {
+  aValue = a[sortingParam];
+  bValue = b[sortingParam];
+  if (sortOrder == "asc") {
+    return aValue < bValue ? -1 : 1;
+  } else if (sortOrder == "desc") {
+      return aValue > bValue ? -1 : 1;
+  } else {
+      return 0;
+  }
+  });
+  showWorkouts();
 }
 
-// function to add div element in workout-list for every workout
-function createNewWorkoutElement(workout) {
+// funkcija za prolaz kroz sve treninge
+function showWorkouts() {
+  workoutsContainerElement.innerHTML = ""; // prazan String koji cemo napuniti HTML kodom
+  if (workouts != null)
+    workouts.forEach((workout) => createWorkoutElement(workout)); 
+}
+
+// funkcija koja dodaje HTML kod za svaki trening koji smo izvukli iz baze podataka kroz workout_handlers/get_workouts.php
+function createWorkoutElement(workout) {
   const elementTemplate = `<a href="single_workout.php?workout_id=${workout.id}" class="workout">
     <img src="./assets/workouts/${workout.image}" class="img workout-img" alt="" />
     <h5>${workout.name}</h5>
     <p>Time: ${workout.exercise_time} min | Difficulty: ${workout.difficulty_level}/10</p>
     </a>`;
 
-    workoutsContainerElement.insertAdjacentHTML("beforeend", elementTemplate);
+    workoutsContainerElement.insertAdjacentHTML("beforeend", elementTemplate); //dodajemo ovaj element na kraj
 }
 
-// AJAX call to add workout, in order not to refresh the whole page
-
+// AJAX zahtev za dodavanje novog treninga kako ne bismo osvezili ekran
 $(document).ready(function (e) {
   $("#add_workout").on("submit", function (e) {
-    e.preventDefault(); // prevent page from reload
+    e.preventDefault(); // radimo prevenciju kako ne bi doslo do osvezivanja ekrana
 
     $.ajax({
       url: "./handlers/workout_handlers/add_workout.php",
@@ -98,12 +117,12 @@ $(document).ready(function (e) {
       data: new FormData(this),
       processData: false,
       contentType: false,
-      cache: false,
+      cache: false,   // ovo ce zabraniti kesiranje datog elementa u browseru
       success: function (response) {
         console.log(response);
         if (response == "Success") {
           alert("Workout has been added successfully!");
-          getWorkouts();
+          getWorkouts();    // pokrecemo getWorkouts() funkciju kako bismo dodali trening koji je unet na glavnu stranicu
         } else {
           alert("Problem adding workout, try again!");
         }
@@ -116,44 +135,7 @@ $(document).ready(function (e) {
   });
 });
 
-// functio to sort Workout based on choice
-
-function sortWorkouts() {
-  const sortingParam = sortSelect.value;
-  const sortOrder = document.querySelector(
-    'input[name="sortOrderRadio"]:checked'
-  ).value;
-
-  if (sortingParam == "exercise_time" || sortingParam == "difficulty_level") {
-    workouts.sort((a, b) => {
-      aValue = parseInt(a[sortingParam]);
-      bValue = parseInt(b[sortingParam]);
-      if (sortOrder == "asc") {
-        return aValue < bValue ? -1 : 1;
-      } else if (sortOrder == "desc") {
-        return aValue > bValue ? -1 : 1;
-      } else {
-        return 0;
-      }
-    });
-  } else {
-    workouts.sort((a, b) => {
-      aValue = a[sortingParam];
-      bValue = b[sortingParam];
-      if (sortOrder == "asc") {
-        return aValue < bValue ? -1 : 1;
-      } else if (sortOrder == "desc") {
-        return aValue > bValue ? -1 : 1;
-      } else {
-        return 0;
-      }
-    });
-  }
-  renderWorkouts();
-}
-
-// AJAX for filtering workouts
-
+// AJAX zahtev za filterovanje treninga na glavnoj strani
 function filterWorkouts() {
   var formData = new FormData();
   formData.append("name", filters.name.value);
@@ -172,7 +154,7 @@ function filterWorkouts() {
       try {
         console.log(response);
         if (response != null) {
-          response = JSON.parse(response); // because we are getting workouts in JSON file
+          response = JSON.parse(response); // kao odgovor dobijamo JSON fajl koji treba deserijalizovati
           workouts = response;
         } else {
           workouts = [];

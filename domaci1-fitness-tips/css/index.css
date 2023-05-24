@@ -20,7 +20,7 @@ html {
     --primary-100: #e2e0ff;
     --primary-200: #c1beff;
     --primary-300: #a29dff;
-    --primary-400: #837dff;
+    --primary-400: #0088dc;
     --primary-500: #645cff;
     --primary-600: #504acc;
     --primary-700: #3c3799;
@@ -571,7 +571,7 @@ Workout
 
 /*
 =============== 
-Add new workout modal 
+Add new workout window 
 ===============
 */
 
@@ -592,21 +592,21 @@ Add new workout modal
 
 /*
 =============== 
-Add new workout modal 
+Add new workout window 
 ===============
 */
 
-#addNewWorkoutModal {
+#addNewWorkoutWindow {
     display: none;
     z-index: 1;
 }
 
-#addNewWorkoutModal .close-modal-btn>svg {
+#addNewWorkoutWindow .close-modal-btn>svg {
     width: 16px;
     height: 16px;
 }
 
-#addNewWorkoutModal.active {
+#addNewWorkoutWindow.active {
     width: 60vw;
     min-width: 400px;
     height: 400px;
@@ -620,11 +620,11 @@ Add new workout modal
     padding: 20px;
 }
 
-.addNewWorkoutModalTitle {
+.addNewWorkoutWindowTitle {
     text-align: center;
 }
 
-#addNewWorkoutModal.active>form {
+#addNewWorkoutWindow.active>form {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: repeat(6, 1fr);
@@ -633,19 +633,19 @@ Add new workout modal
     justify-items: center;
 }
 
-#addNewWorkoutModal.active>form>textarea[name="additional"] {
+#addNewWorkoutWindow.active>form>textarea[name="additional"] {
     grid-row: span 2;
     width: 100%;
 }
 
-#addNewWorkoutModal.active>form>button[type="submit"] {
+#addNewWorkoutWindow.active>form>button[type="submit"] {
     grid-column: span 2;
     margin: 15px;
     height: 40px;
     width: 200px;
 }
 
-#addNewWorkoutModal.active>form>input {
+#addNewWorkoutWindow.active>form>input {
     width: 70%;
     margin: auto;
     min-width: 200px;
@@ -662,16 +662,16 @@ form textarea {
 
 /*
 ==================== 
-Delete profile modal
+Delete profile window
 ====================
 */
 
-#deleteProfileModal {
+#deleteProfileWindow {
     display: none;
     z-index: 1;
 }
 
-#deleteProfileModal.active {
+#deleteProfileWindow.active {
     width: 40vw;
     min-width: 300px;
     height: 300px;
@@ -687,11 +687,11 @@ Delete profile modal
     padding: 20px;
 }
 
-#deleteProfileModal .question {
+#deleteProfileWindow .question {
     text-align: center;
 }
 
-#deleteProfileModal .buttons {
+#deleteProfileWindow .buttons {
     display: flex;
     width: 100%;
     justify-content: space-evenly;
@@ -700,16 +700,16 @@ Delete profile modal
 
 /*
 ==================== 
-Edit profile modal
+Edit profile window
 ====================
 */
 
-#editProfileDataModal {
+#editProfileDataWindow {
     display: none;
     z-index: 1;
 }
 
-#editProfileDataModal.active {
+#editProfileDataWindow.active {
     width: 60vw;
     min-width: 400px;
     height: 500px;

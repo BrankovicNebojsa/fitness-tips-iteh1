@@ -3,10 +3,9 @@
 require '../../db_connection.php';
 require '../../models/Workout.php';
 
-// the response is JSON file with all workouts from DB
+// odgovor predstavlja JSON fajl u kojem se nalaze svi treninzi u bazi podataka
 if (isset($_GET['getAll'])) {
     $workouts = Workout::getWorkouts($conn);
-
     $res = json_encode(utf8ize($workouts));
     echo  $res;
 }
@@ -22,11 +21,12 @@ if (isset($_GET['filter'])) {
     )));
 }
 
+// prevencija loseg unosa korisnika
 function sanitizeUserData($data)
 {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
+    $data = trim($data);                // uklanja blanko karaktere na pocektu i na kraju unosa
+    $data = stripslashes($data);        // uklanja znak '/' kako ne bi remetio tok aplikacije
+    $data = htmlspecialchars($data);    // prebacuje specijalne HTML karaktere u obicne karaktere
     return $data;
 }
 

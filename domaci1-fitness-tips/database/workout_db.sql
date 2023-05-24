@@ -28,13 +28,14 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user` */
 
 insert  into `user`(`id`,`username`,`password`,`email`) values 
 (1,'admin','admin','admin@gmail.com'),
-(16,'nebojsa','nebojsa','brankovic.n99@gmail.com');
+(16,'nebojsa','nebojsa','brankovic.n99@gmail.com'),
+(24,'nesa','nesa','nesa@gmail.com');
 
 /*Table structure for table `workout` */
 
@@ -54,7 +55,7 @@ CREATE TABLE `workout` (
   PRIMARY KEY (`id`),
   KEY `fk_user` (`user_id`),
   CONSTRAINT `fk_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `workout` */
 

@@ -3,7 +3,7 @@
 require '../../db_connection.php';
 require '../../models/User.php';
 
-// this file handles POST
+// ovaj fajl handluje POST zahtev za brisanje korisnika
 
 $id = 0;
 
